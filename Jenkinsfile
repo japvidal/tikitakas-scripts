@@ -16,8 +16,8 @@ pipeline {
         stage('Validate Files') {
             steps {
                 script {
-                    def ps1Files = findFiles(glob: '*.ps1')
-                    if (ps1Files.length == 0) {
+                    def status = sh(script: 'ls *.ps1 >/dev/null 2>&1', returnStatus: true)
+                    if (status != 0) {
                         error('No se encontraron scripts .ps1 en el repositorio')
                     }
                 }
